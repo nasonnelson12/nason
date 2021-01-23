@@ -1,0 +1,145 @@
+{% load static %}
+{% load mptt_tags %}
+
+<nav>
+
+<div class="mt=5">
+{% if messages %} 
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}" role="alert">
+        {{ message|safe }}
+    </div>
+    {% endfor %}
+{% endif %}
+</div>
+
+<!-- Header Section Begin -->
+    <header class="header-section">
+        <div class="header-top">
+            <div class="container">
+                <div class="ht-left">
+                    <div class="mail-service">
+                        <i class=" fa fa-envelope"></i>
+                        nslimited1@gmail.com
+                    </div>
+                    <div class="phone-service">
+                        <i class=" fa fa-phone"></i>
+                        +25567361336
+                    </div>
+                </div>
+                <div class="ht-right">
+                    {% if request.user.is_authenticated %}
+
+                    {% else %}
+                    <a href="/login" class="login-panel"><i class="fa fa-user"></i>Login</a>
+                    <a href="/signup" class="login-panel"><i class="fa fa-user"></i>Register</a>
+                    {% endif %}
+                   
+                    <div class="top-social">
+                        <a href="https://web.facebook.com/Nslimited1/"><i class="ti-facebook"></i></a>
+                        <a href="https://www.instagram.com/nslimited/"><i class="ti-instagram"></i></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="inner-header">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2">
+                        <div class="logo">
+                            <a href="{% url 'shop:home' %}">
+                                <img src="{% static 'nason/img/logo2.png' %}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <form action="/search/" method="GET">
+                        <div class="advanced-search">
+                            <button type="button" class="category-btn">All Categories</button>
+                            <div class="input-group">
+                                <input type="text" name="keyword" placeholder="What do you need?" required>
+                                <button type="submit"><i class="ti-search"></i></button>
+                            </div>
+                        </div>
+                        </form> 
+                    </div>
+                    <div class="col-lg-3 text-right col-md-3">
+                        <ul class="nav-right">
+                             
+                            <li class="cart-icon">
+                                <a href="/shopingcart/">
+                                    <i class="icon_bag_alt"></i>
+                                    <span></span>
+                                </a>
+                                
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-item">
+            <div class="container">
+                <div class="nav-depart">
+                    <div class="depart-btn">
+                        <i class="ti-menu"></i>
+                        <span>All departments</span>
+                        <ul class="depart-hover">
+                            {% recursetree category %}
+                            <li><a href="/category/{{ node.id }}/{{ node.slug }}">{{ node.name }}</a></li>
+                            {% if not node.is_leaf_node %}
+                                <ul class="children">
+                                    {{ children }}
+                                </ul>
+                            {% endif %}
+                            {% endrecursetree %}
+                        </ul>
+                    </div>
+                </div>
+                <nav class="nav-menu mobile-menu">
+                    <ul>
+                        <li class="active"><a href="{% url 'shop:home' %}">Home</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        {% if request.user.is_authenticated %}
+                        <li><a href="/user/profile">My account</a></li>
+                        {% else %}
+                        
+                        {% endif %}
+                        
+                        
+                    </ul>
+                </nav>
+                <div id="mobile-menu-wrap"></div>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+    <!-- Hero Section Begin -->
+    <section class="hero-section">
+        <div class="hero-items owl-carousel">
+            {% for rs in product_slider %}
+            <div class="single-hero-items set-bg" data-setbg="{{ rs.image.url }}" style="height: 
+            500px">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <span>{{ rs.category }}</span>
+                            <h1>{{ rs.title }}</h1>
+                            <a href="{{ rs.get_absolute_url }}" class="primary-btn">Shop Now</a>
+                        </div>
+                    </div>
+                    <div class="off-card">
+                        <h2>Tsh <span>{{ rs.discount_parcent }}</span></h2>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+
+</nav>

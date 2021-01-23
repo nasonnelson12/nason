@@ -1,0 +1,305 @@
+{% load static %}
+{% load mptt_tags %}
+ 
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>NASON</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'nason/css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/themify-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/nice-select.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/jquery-ui.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/style.css' %}" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+    {% include 'navbar.html' %}
+    <!-- Header End -->
+
+<!-- Product Shop Section Begin -->
+    <section class="product-shop spad page-details">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="product-pic-zoom">
+                                <img class="product-big-img" src="{{ product.image.url }}" alt="" style="height: 350">
+                                <div class="zoom-icon">
+                                    <i class="fa fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <div class="product-thumbs">
+                                <div class="product-thumbs-track ps-slider owl-carousel">
+                                    <div class="pt active" data-imgbigurl="{{ product.image.url }}"><img
+                                            src="{{ product.image.url }}" alt=""></div>
+                                    {% for rs in images %}
+                                    <div class="pt" data-imgbigurl="{{ rs.image.url }}"><img
+                                            src="{{ rs.image.url }}" alt="" style="height: 200px" ></div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="product-details">
+                                <div class="pd-title">
+                                    <span>{{product.category}}</span>
+                                    <h3>{{product.title}}</h3>
+                                    <a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
+                                </div>
+                                <div class="pd-rating">
+                                    <i class="fa fa-star{% if product.avaregereview < 1%}-0 empty{% endif%}"></i>
+                                    <i class="fa fa-star{% if product.avaregereview < 2%}-0 empty{% endif%}"></i>
+                                    <i class="fa fa-star{% if product.avaregereview < 3%}-0 empty{% endif%}"></i>
+                                    <i class="fa fa-star{% if product.avaregereview < 4%}-0 empty{% endif%}"></i>
+                                    <i class="fa fa-star{% if product.avaregereview < 5%}-0 empty{% endif%}"></i>
+                                    {{ product.avaregereview |stringformat:".2f" }}
+                                    <span>({{ product.countreview }})</span>
+                                </div>
+                                
+                                <div class="pd-desc">
+                                    <p>{{product.description}}</p>
+                                    
+                                </div>
+
+                                 
+                                <form action="/order/addtoshopcart/{{ product.id }}/" method="post">
+                                {% csrf_token %}
+
+                                {% if product.variation_set.all %}
+
+                                {% if product.variation_set.sizes %}
+                                <label for="size">select size:</label>
+                                <select class="form-contro" name="size">
+                                {% for item in  product.variation_set.sizes %}
+                                    <option value="{{ item.title|lower}}" name="size">{{ item.title|capfirst}}</option>
+                                {% endfor %}
+                                </select>
+                                {% endif %}
+
+                                {% if product.variation_set.colors %}
+                                <label for="size">select color:</label>
+                                <select class="form-contro" name="color">
+                                {% for item in  product.variation_set.colors %}
+                                    <option value="{{ item.title|lower}}" name="color">{{ item.title|capfirst}}</option>
+                                {% endfor %}
+                                </select>
+                                {% endif %}
+  
+                                {% endif %}
+                                
+                                 <div class="pd-desc">
+                                   
+                                    <h4>Tsh {{product.discount_price}} <span>Tsh {{product.price}}</span></h4>
+                                </div>
+                                <div class="quantity">
+                                    <div class="pro-qty">
+                                        <input type="text" name="quantity" value="1" min="1">
+                                    </div>
+                                    <button type="submit" class="primary-btn pd-cart">Add To Cart</button>
+                                </div>
+                        
+                                </form>
+
+                                <ul class="pd-tags">
+                                    <li><span>CATEGORIES</span>: {{product.category}}</li>
+                                </ul>
+                                <div class="pd-share">
+                                    <div class="pd-social">
+                                        <a href="#"><i class="ti-facebook"></i></a>
+                                        <a href="#"><i class="ti-twitter-alt"></i></a>
+                                        <a href="#"><i class="ti-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-tab">
+                        <div class="tab-item">
+                            <ul class="nav" role="tablist">
+                                <li>
+                                    <a class="active" data-toggle="tab" href="#tab-1" role="tab">DESCRIPTION</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#tab-2" role="tab">SPECIFICATIONS</a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#tab-3" role="tab">Customer Reviews (02)</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-item-content">
+                            <div class="tab-content">
+                                <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
+                                    <div class="product-content">
+                                        <div class="row">
+                                            <div class="col-lg-7">
+                                                <h5>Features</h5>
+                                                <p>{{product.details}}</p>
+                                            </div>
+                                            <div class="col-lg-5">
+                                                <img src="img/product-single/tab-desc.jpg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab-2" role="tabpanel">
+                                    <div class="specification-table">
+                                        <table>
+                                           {{product.specifications  |safe }}
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab-3" role="tabpanel">
+                                    <div class="customer-review-option">
+                                        <h4>Comments</h4>
+                                        {% for rs in comments %}
+                                        <div class="comment-option">
+                                            <div class="co-item">
+                                                <div class="avatar-text">
+                                                    <div class="at-rating">
+                                                        <i class="fa fa-star{% if rs.rate < 1 %}-o{% endif %}"></i>
+                                                        <i class="fa fa-star{% if rs.rate < 2 %}-o{% endif %}"></i>
+                                                        <i class="fa fa-star{% if rs.rate < 3 %}-o{% endif %}"></i>
+                                                        <i class="fa fa-star{% if rs.rate < 4 %}-o{% endif %}"></i>
+                                                        <i class="fa fa-star{% if rs.rate < 5 %}-o{% endif %}"></i>
+                                                    </div>
+                                                    <h5>{{ rs.user }}<span>{{ rs.create_at }}</span></h5>
+                                                    <h6>{{ rs.subject }}</h6>
+                                                    <div class="at-reply">{{ rs.comment }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                         {% endfor %}
+                                        <div class="personal-rating">
+                                            <h6>Your Ratind</h6>
+                                            <div class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-o"></i>
+                                            </div>
+                                        </div>
+                                        <div class="leave-comment">
+                                            <h4>Leave A Comment</h4>
+
+                                            <div >
+                                            {% if messages %} 
+                                                {% for message in messages %}
+                                                <div class="alert alert-{{ message.tags }}" role="alert">
+                                                    {{ message }}
+                                                </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                            </div>
+
+                                            <form action="/addcomment/{{ product.id }}/" method="post" class="comment-form">
+                                                {% csrf_token %}
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <input type="text" name="subject" placeholder="Your subject">
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <textarea name="comment" placeholder="Messages"></textarea>
+                                                    </div>
+                                                </div>
+                                                {% if user.id is not None %}
+                                                 <button type="submit" class="site-btn">Send message</button>
+                                                 {% else %}
+                                                 You must be logged in
+                                                {% endif %}
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Shop Section End -->
+
+    <!-- Related Products Section End -->
+    <div class="related-products spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Related Products</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="product-slider owl-carousel">
+                {% for item in product.category.item_set.all %}
+                <div class="product-item">
+                            <div class="pi-pic">
+                                <img src="{{ item.image.url }}" alt=""> 
+                                <div class="sale">{{item.discount_parcent}}</div>
+                                <div class="icon">
+                                    <i class="icon_heart_alt"></i>
+                                </div>
+                                <ul>
+                                    <li class="w-icon active"><a href="/order/addtoshopcart/{{ product.id }}/"><i class="icon_bag_alt"></i></a></li>
+                                    <li class="quick-view"><a href="{{ item.get_absolute_url }}">+ Quick View</a></li>
+                                    <li class="w-icon"><a href="{{ item.get_absolute_url }}"><i class="fa fa-random"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="pi-text">
+                                <div class="catagory-name">{{item.category}}</div>
+                                <a href="{{ item.get_absolute_url }}">
+                                    <h5>{{item.title}}</h5>
+                                </a>
+                                <div class="item-price">
+                                    Tsh{{item.discount_price}}
+                                    <del>Tsh{{item.price}}</del> 
+                                </div>
+                            </div>
+                        </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- Related Products Section End -->
+
+    <!-- Footer Section  -->
+     {% include 'navbar1.html' %}
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/bootstrap.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery-ui.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.countdown.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.nice-select.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.zoom.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.dd.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.slicknav.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/owl.carousel.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/main.js' %}"></script>
+</body>
+
+</html>

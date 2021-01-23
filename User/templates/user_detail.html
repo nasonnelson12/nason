@@ -1,0 +1,175 @@
+{% load static %}
+{% load mptt_tags %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head> 
+    <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+    <title>NASON</title> 
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+ 
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'nason/css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/themify-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/nice-select.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/jquery-ui.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/style.css' %}" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+     {% include 'navbar.html' %}
+    <!-- Header End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text product-more">
+                        <a href="/"><i class="fa fa-home"></i> Home</a>
+                        <span>Order Detail</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
+
+    <!-- Shopping Cart Section Begin -->
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="login-form">
+                        <h2>User Panel </h2>
+                            <ul>
+                                 {% include 'navlink.html' %}
+                                
+                            </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <h2>User Detail</h2>
+                    <div class="cart-table">
+                        <table>
+                            <tr>
+                                <th>Name</th>
+                                <td>{{ order.first_name }} {{ order.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Phone</th>
+                                <td>{{ order.phone }}</td>
+                            </tr>
+                             <tr>
+                                 <th>Region</th>
+                                 <td>{{ order.region }}</td>
+                             </tr>
+                             <tr>
+                                 <th>District</th>
+                                 <td>{{ order.district }}</td>
+                             </tr>
+                             <tr>
+                                 <th>Street</th>
+                                 <td>{{ order.street_address }}</td>
+                             </tr>
+                             <tr>
+                                 <th>Apartment</th>
+                                 <td>{{ order.apartment_address }}</td>
+                             </tr>
+                             <tr>
+                                 <th>Shipping inf</th>
+                                 <td>{{ order.adminnote }}</td>
+                             </tr>
+                            <tr>
+                                 <th>Status</th>
+                                 <td>{{ order.status }}</td>
+                             </tr>
+                            <tr>
+                                 <th>Date</th>
+                                 <td>{{ order.create_at }}</td>
+                             </tr>
+                        </table>
+                    </div>
+                    <h2>Orders Item List</h2>
+                    <div class="cart-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th class="p-name">Product Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for rs in orderitems %}
+                                <tr>
+                                    <td class="cart-pic first-row"><img src="{{rs.product.image.url}}" alt="" style="height: 100px"></td>
+                                    <td class="cart-title first-row">
+                                        <a href="/product/{{ rs.product.id }}/{{ rs.product.slug }}"><h5>{{rs.product.title}}</h5></a>
+                                    </td>
+                                    <td class="p-price first-row">
+                                    {% if rs.product.discount_price %}
+                                        Tsh {{ rs.product.discount_price }}
+                                    {% else %}
+                                        Tsh {{ rs.product.price }}
+                                    {% endif %}
+                                    </td>
+                                    <td class="qua-col first-row">
+                                        <div class="quantity">
+                                                {{ rs.quantity }}
+                                        </div>
+                                    </td>
+                                    <td class="total-price first-row">{{ rs.status }}</td>
+                                    <td >{{ rs.create_at }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shopping Cart Section End -->
+
+
+    <!-- Footer Section Begin -->
+    
+    {% include 'navbar1.html' %}
+    <!-- Footer Section End -->
+    
+
+    <!-- Js Plugins -->
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/bootstrap.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery-ui.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.countdown.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.nice-select.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.zoom.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.dd.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.slicknav.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/owl.carousel.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/main.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,146 @@
+{% load static %}
+{% load mptt_tags %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head> 
+    <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+    <title>NASON</title> 
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+ 
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'nason/css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/themify-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/nice-select.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/jquery-ui.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/style.css' %}" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+     {% include 'navbar.html' %}
+    <!-- Header End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <a href="/"><i class="fa fa-home"></i> Home</a>
+                        <span>Contact</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
+
+    <!-- Contact Section Begin -->
+    <section class="contact-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="contact-title">
+                        <h4>Contacts Us</h4>
+                         
+                    </div>
+                    <div class="contact-widget">
+                        <div class="cw-item">
+                            <div class="ci-icon">
+                                <i class="ti-location-pin"></i>
+                            </div>
+                            <div class="ci-text">
+                                <span>Address:</span>
+                                <p>MWANZA</p>
+                            </div>
+                        </div>
+                        <div class="cw-item">
+                            <div class="ci-icon">
+                                <i class="ti-mobile"></i>
+                            </div>
+                            <div class="ci-text">
+                                <span>Phone:</span>
+                                <p>+255767361336</p>
+                            </div>
+                        </div>
+                        <div class="cw-item">
+                            <div class="ci-icon">
+                                <i class="ti-email"></i>
+                            </div>
+                            <div class="ci-text">
+                                <span>Email:</span>
+                                <p>nslimited@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 offset-lg-1">
+                    <div class="contact-form">
+                        <div class="leave-comment">
+                            <h4>Leave A Comment</h4>
+                            <p>Our staff will call back later and answer your questions.</p>
+                            <form action="" method="post" class="comment-form">
+                                 {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <input type="text" name="first_name" placeholder="Your first_name">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="last_name" placeholder="Your last_name">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="email" placeholder="Your email">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="text" name="phone" placeholder="Your phone">
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <textarea name="massage" placeholder="Your message"></textarea>
+                                        <button type="submit" class="site-btn">Send message</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section End -->
+
+    
+
+    <!-- Footer Section  -->
+    {% include 'navbar1.html' %}
+    <!-- Footer Section End -->
+
+  <!-- Js Plugins -->
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/bootstrap.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery-ui.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.countdown.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.nice-select.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.zoom.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.dd.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.slicknav.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/owl.carousel.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/main.js' %}"></script>
+</body>
+
+</html>

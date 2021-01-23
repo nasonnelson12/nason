@@ -1,0 +1,141 @@
+{% load static %}
+{% load mptt_tags %}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head> 
+    <meta charset="UTF-8">
+    <meta name="description" content="Fashi Template">
+    <meta name="keywords" content="Fashi, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+    <title>NASON</title> 
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+ 
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'nason/css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/themify-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/nice-select.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/jquery-ui.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'nason/css/style.css' %}" type="text/css">
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+     <!-- Header Section Begin -->
+     {% include 'navbar.html' %}
+    <!-- Header End -->
+
+
+    <!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text product-more">
+                        <a href="/"><i class="fa fa-home"></i> Home</a>
+                        <a href="/">Shop</a>
+                        <span>Check Out</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
+
+    <!-- Shopping Cart Section Begin -->
+    <section class="checkout-section spad">
+        <div class="container">
+            <form action="" method="post" class="checkout-form">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4>Biiling Details</h4>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label for="fir">First Name (jina la kwanza)<span>*</span></label>
+                                <input type="text" name="first_name" id="fir">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="last">Last Name (jina la pili)<span>*</span></label>
+                                <input type="text" name="last_name" id="last">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="cun">Region (mkoa)<span>*</span></label>
+                                {{form.region}}
+                                
+                            </div>
+                             <div class="col-lg-6">
+                                <label for="cun">District (wilaya)<span>*</span></label>
+                                 {{form.district}}
+                            </div><br><br>
+                            <div class="col-lg-12">
+                                <label for="street">Street Address (kata na mtaa)<span>*</span></label>
+                                <input type="text" name="street_address" id="street" class="street-first" placeholder="kata uliopo">
+                                <input type="text" name="apartment_address" placeholder="mtaa uliopo">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="phone">Phone (namba za simu)<span>*</span></label>
+                                <input type="text" name="phone" id="phone">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="place-order">
+                            <h4>Your Order</h4>
+                            <div class="order-total">
+                               
+                                <ul class="order-table">
+                                    <li>Product <span>Total</span></li>
+                                     {% for rs in shopcart %}
+                                    <li class="fw-normal">{{rs.product.title}} x {{ rs.quantity }} <span>{% if rs.product.discount_price %}
+                                        Tsh {{ rs.product.discount_price }}
+                                    {% else %}
+                                        Tsh {{ rs.product.price }}
+                                    {% endif %}</span></li>
+                                    {% endfor %}
+                                    <li class="total-price">Total <span>Tsh {{total}}</span></li>
+                                </ul>
+                                
+                                <div class="order-btn">
+                                    <button type="submit" class="site-btn place-btn">Place Order</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- Shopping Cart Section End -->
+
+
+    <!-- Footer Section Begin -->
+    
+    {% include 'navbar1.html' %}
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/bootstrap.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery-ui.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.countdown.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.nice-select.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.zoom.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.dd.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/jquery.slicknav.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/owl.carousel.min.js' %}"></script>
+    <script type="text/JavaScript" src="{% static 'nason/js/main.js' %}"></script>
+</body>
+
+</html>
